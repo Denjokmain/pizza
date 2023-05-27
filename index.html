@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <div class="box">
+            <div class="header">
+                <img src="images/logo.png" class="logo">
+                <div class="header-describe">
+                    <b>Pizza</b>
+                    <div>cамая вкусная пицца во вселенной</div>
+                </div>
+                <button class="cartBtn btn" onclick="cart.open()">
+                    <p><b id="total-price">0</b> Р</p>
+                    <div></div>
+                    <img src="images/cart.png">
+                    <p id="pizzas-amount">0</p>
+                </button>
+            </div>
+            <div class="type">
+                <button onclick="setSortType(this)" onclick="setSortType(this)" class="typeBtn btn active-type">Все</button> 
+                <button onclick="setSortType(this)" class="typeBtn btn">Мясные</button> 
+                <button onclick="setSortType(this)" class="typeBtn btn">Вегетарианская</button> 
+                <button onclick="setSortType(this)" class="typeBtn btn">Гриль</button> 
+                <button onclick="setSortType(this)" class="typeBtn btn">Острые</button> 
+                <button onclick="setSortType(this)" class="typeBtn btn">Закрытые</button>
+                <div class="sort">
+                    <b>Сортировка по</b>
+                    <select onchange="setContent()">
+                        <option>популярности</option>
+                        <option>цене</option>
+                        <option>алфавиту</option>
+                    </select>
+                </div>
+            </div>
+            <h1>Все пиццы</h1>
+            <div class="content">
+                <div class="card">
+                    <img src="images/pizza1.jpg">
+                    <h3 id="name">Чизбургер-пицца</h3>
+                    <div class="cook-type">
+                        <div>
+                            <button class="btn2 cook-active" onclick="setType(this)">тонкое</button>
+                            <button class="btn2" onclick="setType(this)">традиционное</button>
+                        </div>
+                        <div>
+                            <button class="btn2 cook-active" onclick="setType(this)">26 см.</button>
+                            <button class="btn2" onclick="setType(this)">30 см.</button>
+                            <button class="btn2" onclick="setType(this)">40 см.</button>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h3>от <span id="price">395</span> Р</h3>
+                        <button class="add-box btn" onclick="cart.addPizza(this)">
+                            <img src="images/plus.svg">
+                            <b>добавить</b>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cartBox" style="display: none;">
+            <div class="header">
+                <img src="images/logo.png" class="logo">
+                <div class="header-describe">
+                    <b>Pizza</b>
+                    <div>cамая реактивная пицца</div>
+                </div>
+                <button class="close-cart-btn btn" onclick="cart.close()"><img src="images/plus.svg"></button>
+            </div>
+            <div id="content">
+                <div class="cart-header">
+                    <img class="cart-header-cart" src="images/cart.svg"><h2>Корзина</h2>
+                    <div onclick="cart.clear()" class="cart-header-trash"><img src="images/trash.svg"><p>Очистить корзину</p></div>
+                </div>
+                <div class="cart-content"></div>
+                <div class="cart-bottom">
+                    <div><p>Всего пицц: <b id="pizzas-amount"></b><b> шт.</b></p><p>Сумма заказа:<b id="total-price"></b> Р</p></div>
+                    <div><button class="btn back" onclick="cart.close()">Вернуться назад</button><button class="btn pai">Оплатить сейчас</button></div>
+                </div>
+            </div>
+            <div class="empty-cart">
+                <h3>Корзина пустая 😕</h3>
+                <p>Вероятней всего, вы не заказывали ещё пиццу. <br>
+                   Для того, чтобы заказать пиццу, перейди на главную страницу.
+                </p>
+                <img src="images/empty-cart.svg">
+                <button class="btn" onclick="cart.close()">Вернуться назад</button>
+            </div>
+        </div>
+    </body>
+    <script src="./script.js"></script>
+</html>
