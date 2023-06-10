@@ -7,13 +7,14 @@ let priceFields = document.querySelectorAll('#total-price')
 let amountFields = document.querySelectorAll('#pizzas-amount')
 
 let sortSelect = document.querySelector('.sort').children[1]
+let typeBtns = document.querySelector('.type')
 
 let pizzasList = [
-    ['Чизбургер-пицца', 395, 'pizza1.jpg'],
-    ['Сырная', 450, 'pizza2.jpg'],
-    ['Креветки по азиатски', 290, 'pizza3.jpg'],
-    ['Сырный цыпленок', 385, 'pizza4.jpg'],
-    ['Абобус', 9999, 'abobus.jpg'],
+    ['Чизбургер-пицца', 395, 'pizza1.jpg', []],
+    ['Сырная', 450, 'pizza2.jpg', []],
+    ['Креветки по азиатски', 290, 'pizza3.jpg', ['Вегетарианская']],
+    ['Сырный цыпленок', 385, 'pizza4.jpg', ['Мясные']],
+    ['Абобус', 9999, 'abobus.jpg', []],
 ]
 
 class Cart {
@@ -177,10 +178,13 @@ function setSortType(element) {
         elements[i].classList.remove('active-type')
     }
     element.classList.add('active-type')
+    setContent()
 }
 
 function setContent() {
     let sortType = sortSelect.value
+    let sortTypeBtn = typeBtns.querySelector('.active-type').innerText
+    // console.log(sortTypeBtn, typeBtns)
     let sortedPizzas = {}
     if (sortType == 'цене') {
         for (let i = 0; i<pizzasList.length; i++) {
@@ -204,6 +208,15 @@ function setContent() {
     } else {
         for (let i = 0; i<pizzasList.length; i++) { 
             sortedPizzas[i] = pizzasList[i]
+        }
+    }
+    if (sortTypeBtn != 'Все') {
+        // console.log(sortedPizzas)
+        for (let i in sortedPizzas) {
+            if (!sortedPizzas[i][3].includes(sortTypeBtn)) {
+                console.log(sortTypeBtn, sortedPizzas[i][3], `${sortTypeBtn}` in sortedPizzas[i][3])
+                delete sortedPizzas[i]
+            }
         }
     }
     // cartShowContent
