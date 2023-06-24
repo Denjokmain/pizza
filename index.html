@@ -18,6 +18,9 @@
                     <img src="images/cart.png">
                     <p id="pizzas-amount">0</p>
                 </button>
+                <button class="btn" onclick="loginFormOpen()">
+                    <img src="images/profile.png">
+                </button>
             </div>
             <div class="type">
                 <button onclick="setSortType(this)" onclick="setSortType(this)" class="typeBtn btn active-type">Все</button> 
@@ -88,6 +91,32 @@
                 </p>
                 <img src="images/empty-cart.svg">
                 <button class="btn" onclick="cart.close()">Вернуться назад</button>
+            </div>
+        </div>
+
+        <div class="loginForm" style="display: none;">
+            <div class="header-login">
+                <img src="images/logo.png" class="logo">
+                <div class="header-describe">
+                    <b>Pizza</b>
+                    <div>cамая реактивная пицца</div>
+                </div>
+                <button class="close-cart-btn btn" onclick="loginFormClose()"><img src="images/plus.svg"></button>
+            </div>
+            <h1 style="margin-top: 10px; text-align: center;">Вход в аккаунт</h1>
+            <div class="no-accaunt">
+                <div class="login-input">
+                    <label>Логин</label>
+                    <input type="text" id="login" placeholder="логин">
+                    <label>Пароль</label>
+                    <input type="password" id="password" placeholder="пароль">
+                    <button onclick="loginAccaunt(this)">Войти в аккаунт</button>
+                </div>
+            </div>
+            <div class="yes-accaunt">
+                <label id="login">bob</label>
+                <label id="password">hey</label>
+                <button onclick="exitAccaunt()" class="btn">Выйти с аккаунта</button>
             </div>
         </div>
     </body>

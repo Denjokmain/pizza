@@ -1,5 +1,7 @@
 let pizzasContent = document.querySelector('.content')
 let cartBox = document.querySelector('.cartBox');
+let loginForm = document.querySelector('.loginForm');
+
 let cartContent = document.querySelector('.cart-content')
 let cartShowContent = document.querySelector('#content')
 let emptyCartShowContent = document.querySelector('.empty-cart')
@@ -9,6 +11,13 @@ let amountFields = document.querySelectorAll('#pizzas-amount')
 let sortSelect = document.querySelector('.sort').children[1]
 let typeBtns = document.querySelector('.type')
 
+// Аккаунты - (логин, пароль)
+accaunts = [
+    ['боб', 'строитель'],
+    ['11', '11'],
+    ['12', '12']
+]
+
 let pizzasList = [
     ['Чизбургер-пицца', 395, 'pizza1.jpg', []],
     ['Сырная', 450, 'pizza2.jpg', []],
@@ -16,6 +25,8 @@ let pizzasList = [
     ['Сырный цыпленок', 385, 'pizza4.jpg', ['Мясные']],
     ['Абобус', 9999, 'abobus.jpg', []],
 ]
+
+let accaunt_id = -1
 
 class Cart {
     constructor() {
@@ -151,6 +162,7 @@ class Cart {
 
     open() {
         cartBox.style.display = 'block'
+        loginForm.style.display = 'none'
         this.updateDraw()
     }
 
@@ -270,8 +282,58 @@ function getCookie(name) {
     return null;
 }
 
-[]
+function loginFormOpen() {
+    cartBox.style.display = 'none'
+    loginForm.style.display = 'block'
+}
 
+function loginFormClose() {
+    cartBox.style.display = 'none'
+    loginForm.style.display = 'none'
+}
+
+function loginAccaunt(element) {
+    box = element.parentElement;
+
+    login = box.querySelector('#login').value
+    password = box.querySelector('#password').value
+
+    for (let i=0; i<accaunts.length; i++) {
+        if (accaunts[i][0] == login & accaunts[i][1] == password) {
+            setCookie('accaunt', i)
+
+        }
+    }
+    updateAccauntData()
+}
+
+function exitAccaunt() {
+    setCookie('accaunt', -1)
+    updateAccauntData()
+}
+
+function updateAccauntData() {
+    accaunt_id = getCookie('accaunt')
+
+    yesAccaunt = document.querySelector('.yes-accaunt')
+    noAccaunt = document.querySelector('.no-accaunt')
+
+    console.log(accaunt_id)
+    if (accaunt_id == -1) {
+        yesAccaunt.style.display = 'none'
+        noAccaunt.style.display = 'block'
+    }
+    else {
+        yesAccaunt.style.display = 'flex'
+        noAccaunt.style.display = 'none'
+
+        yesAccaunt.querySelector('#login').innerText = 'Логин: ' + accaunts[accaunt_id][0]
+        yesAccaunt.querySelector('#password').innerText = 'Пароль: ' + accaunts[accaunt_id][1]
+    }
+}
+
+
+updateAccauntData()
 cart = new Cart()
 // cart.open()
 setContent()

@@ -481,3 +481,78 @@ h1 {
     color: #f55;
     background-color: #000;
 }
+
+
+
+.header-login {
+    height: 80px;
+    border-bottom: 1px solid #F6F6F6;
+    display: flex;
+    align-items: center;
+    padding: 0 38px 0 77px;
+}
+
+.login-input {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    margin: 30px auto 10px auto;
+    gap: 10px;
+    width: 600px;
+}
+
+.login-input input {
+    padding: 12px;
+    border-radius: 20px;
+    border: 2px;
+    background-color: #ccc;
+    font-size: 20px;
+}
+
+.login-input label {
+    padding-left: 12px;
+    font-size: 20px;
+}
+
+.login-input button {
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 20px;
+    border: 2px;
+    background-color: #fe4901;
+    font-size: 20px;
+    color: #eee;
+}
+
+.loginForm {
+    margin: auto;
+    overflow: auto;
+    box-shadow: 0 2px 6px 1px #666;
+    width: calc(100% - 320px);
+    height: calc(100% - 240px);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 10px 40px 40px 40px;
+}
+
+.yes-accaunt {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: auto;
+    font-size: 20px;
+    gap: 10px
+}
+
+.yes-accaunt button {
+    background-color: #FE5F1E;
+    color: #eee;
+    padding: 10px;
+    border: 6px;
+    text-align: center;
+    font-size: 16px;
+}
