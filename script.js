@@ -42,8 +42,8 @@ class Cart {
 
     pizzaIndex(name, type, size) {
         for (let i = 0; i < this.pizzas.length; i++) {
-            if (this.pizzas[i][0] == name && this.pizzas[i][1] == type && this.pizzas[i][2] == size) {
-                return i
+            if (this.pizzas[i][0] == name && this.pizzas[i][1] == type && this.pizzas[i][2] == size && this.pizzas[i][6] == accaunt_id) {
+                console.log("hey"); return i
             }
         }
         return -1
@@ -62,7 +62,7 @@ class Cart {
         if (index != -1) {
             this.pizzas[index][4] += 1
         } else {
-            this.pizzas.push([name, type, size, price, 1, img])
+            this.pizzas.push([name, type, size, price, 1, img, accaunt_id])
         }
         setCookie('pizzas', JSON.stringify(this.pizzas))
         this.updateDraw()
@@ -85,7 +85,9 @@ class Cart {
     }
 
     clear() {
-        this.pizzas = []
+        for (let i = 0; i < this.pizzas.length; i++) {
+            if (this.pizzas[i][6] == accaunt_id) {this.pizzas.splice(i, 1), i--}
+        }
         setCookie('pizzas', JSON.stringify(this.pizzas))
         this.updateDraw()
     }
@@ -93,7 +95,9 @@ class Cart {
     updateAmount() {
         this.amount = 0
         for(let i = 0; i<this.pizzas.length; i++) {
-            this.amount += this.pizzas[i][4]
+            if (this.pizzas[i][6] == accaunt_id) {
+                this.amount += this.pizzas[i][4]
+            }
         }
         amountFields[0].innerHTML = this.amount
         amountFields[1].innerHTML = this.amount
@@ -102,7 +106,9 @@ class Cart {
     updateTotalPrice() {
         this.totalPrice = 0
         for(let i = 0; i<this.pizzas.length; i++) {
-            this.totalPrice += this.pizzas[i][4]*this.pizzas[i][3]
+            if (this.pizzas[i][6] == accaunt_id) {
+                this.totalPrice += this.pizzas[i][4]*this.pizzas[i][3]
+            }
         }
         priceFields[0].innerHTML = this.totalPrice
         priceFields[1].innerHTML = this.totalPrice
@@ -127,22 +133,24 @@ class Cart {
     updateContent() {
         let content = ''
         for(let i = 0; i<this.pizzas.length; i++) {
-            let [name, type, size, price, amount, img] = this.pizzas[i]
-            content += `
-            <div class="cart-card">
-                <img src="images/${img}">
-                <div class="cart-descibe">
-                    <h3>${name}</h3>
-                    <p>${type}, ${size}см</p>
-                </div>
-                <div class="cart-amount-buttons">
-                    <button class="btn" onclick="cart.reducePizza('${name}', '${type}', ${size})"><img src="images/minus.svg"></button>
-                    <p>${amount}</p>
-                    <button class="btn" onclick="cart.addPizza('', ['${name}', '${type}', ${size}, ${price}])"><img src="images/plus.svg"></button>
-                </div>
-                <p>${price} Р</p>
-                <button class="cart-del-btn btn" onclick="cart.delPizza('${name}', '${type}', ${size})"><img src="images/plus.svg"></button>
-            </div>`
+            let [name, type, size, price, amount, img, accaunt_id2] = this.pizzas[i]
+            if (accaunt_id == accaunt_id2) {
+                content += `
+                <div class="cart-card">
+                    <img src="images/${img}">
+                    <div class="cart-descibe">
+                        <h3>${name}</h3>
+                        <p>${type}, ${size}см</p>
+                    </div>
+                    <div class="cart-amount-buttons">
+                        <button class="btn" onclick="cart.reducePizza('${name}', '${type}', ${size})"><img src="images/minus.svg"></button>
+                        <p>${amount}</p>
+                        <button class="btn" onclick="cart.addPizza('', ['${name}', '${type}', ${size}, ${price}])"><img src="images/plus.svg"></button>
+                    </div>
+                    <p>${price} Р</p>
+                    <button class="cart-del-btn btn" onclick="cart.delPizza('${name}', '${type}', ${size})"><img src="images/plus.svg"></button>
+                </div>`
+            }
         }
         cartContent.innerHTML = content
     }
@@ -301,15 +309,16 @@ function loginAccaunt(element) {
     for (let i=0; i<accaunts.length; i++) {
         if (accaunts[i][0] == login & accaunts[i][1] == password) {
             setCookie('accaunt', i)
-
         }
     }
     updateAccauntData()
+    cart.updateDraw()
 }
 
 function exitAccaunt() {
     setCookie('accaunt', -1)
     updateAccauntData()
+    cart.updateDraw()
 }
 
 function updateAccauntData() {
@@ -319,7 +328,7 @@ function updateAccauntData() {
     noAccaunt = document.querySelector('.no-accaunt')
 
     console.log(accaunt_id)
-    if (accaunt_id == -1) {
+    if ((accaunt_id == -1) | accaunt_id == null) {
         yesAccaunt.style.display = 'none'
         noAccaunt.style.display = 'block'
     }
